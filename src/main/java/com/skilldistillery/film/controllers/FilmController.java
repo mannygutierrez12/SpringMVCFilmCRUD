@@ -13,9 +13,10 @@ public class FilmController {
 	@Autowired
 	private DatabaseAccessor dao;
 	
-	@RequestMapping (path = {"/", "home.do}")
+	@RequestMapping (path = {"/", "home.do"})
 	public String home(Model model) {
 		return "WEB-INF/home.jsp";
 	}
+
 
 }
