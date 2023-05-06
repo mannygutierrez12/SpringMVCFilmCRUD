@@ -5,7 +5,9 @@
          id="WebApp_ID" version="3.1">
          
     <display-name>MVCFilmSite</display-name>
-    <welcome-file-list>home.do</welcome-file-list>
+    <welcome-file-list>
+        <welcome-file>home.do</welcome-file>
+    </welcome-file-list>
     
     <servlet>
         <servlet-name>AdvancedRequests</servlet-name>
@@ -16,7 +18,5 @@
         <servlet-name>AdvancedRequests</servlet-name>
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
-    
- 
     
 </web-app>
