@@ -12,5 +12,10 @@
 
 <h1>MVC Film Site</h1>
 
+<a href= "findfilmbyid.do">Find Film By Id</a>
+<br>
+<a href= "newfilm.do">Add a new film</a>
+
+
 </body>
 </html>

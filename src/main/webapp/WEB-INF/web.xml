@@ -5,16 +5,11 @@
          id="WebApp_ID" version="3.1">
          
     <display-name>MVCFilmSite</display-name>
-<<<<<<< HEAD
-	<welcome-file-list>
-	<welcome-file>home.do</welcome-file>
-	</welcome-file-list>    
-=======
+    
     <welcome-file-list>
         <welcome-file>home.do</welcome-file>
     </welcome-file-list>
     
->>>>>>> 974f81bebcceb8c9d75e361e8bd7771b860149ee
     <servlet>
         <servlet-name>Film</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
