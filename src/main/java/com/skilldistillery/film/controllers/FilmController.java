@@ -32,4 +32,9 @@ public class FilmController {
 	public String newfilm(Model model) throws SQLException  {
 	    return "WEB-INF/newfilm.jsp";
 	}
+	
+	@GetMapping(path = {"/", "findfilmbykeyword.do"})
+	public String findFilmByKeyword(Model model) throws SQLException  {
+	    return "WEB-INF/findfilmbykeyword.jsp";
+	}
 }

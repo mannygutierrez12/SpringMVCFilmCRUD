@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Find Film By ID</title>
+<title>Find Film By Keyword</title>
 
 <style>
 body {
@@ -60,12 +60,12 @@ input[type="submit"] {
 </style>
 </head>
 <body>
-	<h1>Find Film By ID</h1>
+	<h1>Find Film By Keyword</h1>
 
 	<div class="mainDiv">
 		<form method="GET" action="searchfilm.do">
-			<label for="filmId">Enter a film ID:</label> <input type="text"
-				name="filmId" id="filmId"> <input type="submit"
+			<label for="keyword">Enter a keyword:</label> <input type="text"
+				name="keyword" id="keyword"> <input type="submit"
 				value="Search">
 		</form>
 	</div>
