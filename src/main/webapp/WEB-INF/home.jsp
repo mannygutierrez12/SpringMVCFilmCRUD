@@ -45,9 +45,8 @@ h1 {
 }
 
 .link-container:hover {
-  background-color: #eee;
+	background-color: #eee;
 }
-
 </style>
 </head>
 <body>
@@ -58,11 +57,9 @@ h1 {
 		<div class="link-container">
 			<a href="findfilmbyid.do">Look up film by film ID</a>
 		</div>
+
 		<div class="link-container">
-			<a href="findfilmbykeyword.do">Look up film by keyword</a>
-		</div>
-		<div class="link-container">
-			<a href="newfilm.do">Add a new film</a>
+			<a href="createfilm.do">Create a new film</a>
 		</div>
 	</div>
 
