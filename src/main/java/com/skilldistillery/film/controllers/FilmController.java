@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.skilldistillery.film.data.DatabaseAccessor;
 import com.skilldistillery.film.entities.Film;
@@ -36,5 +38,15 @@ public class FilmController {
 	@GetMapping(path = {"/", "findfilmbykeyword.do"})
 	public String findFilmByKeyword(Model model) throws SQLException  {
 	    return "WEB-INF/findfilmbykeyword.jsp";
+	}
+	
+	@RequestMapping(path = "findfilmbyid.do", params = "filmId")
+	public ModelAndView findFilmById(@RequestParam("filmId") int id) {
+		Film film = dao.findFilmById(id);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("WEB-INF/result.jsp");
+		mv.addObject("film", film);
+		
+		return mv;
 	}
 }

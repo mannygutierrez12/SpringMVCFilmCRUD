@@ -63,10 +63,10 @@ input[type="submit"] {
 	<h1>Find Film By ID</h1>
 
 	<div class="mainDiv">
-		<form method="GET" action="searchfilm.do">
-			<label for="filmId">Enter a film ID:</label> <input type="text"
-				name="filmId" id="filmId"> <input type="submit"
-				value="Search">
+		<form method="GET" action="findfilmbyid.do" name="filmId">
+			<label for="filmId">Enter a film ID:</label> 
+			<input type="text" name="filmId"> 
+			<input type="submit" value="Search">
 		</form>
 	</div>
 </body>
