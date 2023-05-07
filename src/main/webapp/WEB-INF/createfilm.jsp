@@ -57,7 +57,7 @@ input[type="text"]{
 	<div class="mainDiv">
 		
 
-		<form method="post" action="createfilm.jsp">
+		<form method="post" action="createfilm.do">
 
 			<label for="title">Title:</label> 
 			<input type="text" id="title" name="title" required>

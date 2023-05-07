@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -55,33 +55,28 @@ public class FilmController {
 		return mv;
 	}
 
-	@RequestMapping(path = { "/", "createfilm.do" } , params = { "title", "description", "releaseYear", "languageId",
-			"rentalDuration", "rentalRate", "length", "replacementCost", "rating", "specialFeatures" })
-	public ModelAndView createFilm(@RequestParam("title") String title, @RequestParam("description") String description,
-			@RequestParam("releaseYear") int releaseYear, @RequestParam("languageId") int languageId,
-			@RequestParam("rentalDuration") int rentalDuration, @RequestParam("rentalRate") double rentalRate,
-			@RequestParam("length") int length, @RequestParam("replacementCost") double replacementCost,
-			@RequestParam("rating") String rating, @RequestParam("specialFeatures") String specialFeatures) {
-		
-		Film film = new Film();
-		film.setTitle(title);
-		film.setDescription(description);
-		film.setReleaseYear(releaseYear);
-		film.setLanguageId(languageId);
-		film.setRentalDuration(rentalDuration);
-		film.setRentalRate(rentalRate);
-		film.setLength(length);
-		film.setReplacementCost(replacementCost);
-		film.setRating(rating);
-		film.setSpecialFeatures(specialFeatures);
+	@RequestMapping(path = "createfilm.do", params = {"title", "description", "releaseYear", 
+			"languageId", "rentalDuration", "rentalRate", "length", "replacementCost", "rating", "specialFeatures"})
+	public ModelAndView createFilm(@RequestParam("title") String title, 
+	                               @RequestParam("description") String description,
+	                               @RequestParam("releaseYear") int releaseYear, 
+	                               @RequestParam("languageId") int languageId,
+	                               @RequestParam("rentalDuration") int rentalDuration, 
+	                               @RequestParam("rentalRate") double rentalRate,
+	                               @RequestParam("length") int length, 
+	                               @RequestParam("replacementCost") double replacementCost,
+	                               @RequestParam("rating") String rating, 
+	                               @RequestParam("specialFeatures") String specialFeatures) 
+	{
+	    Film createdFilm = dao.createFilm(title, description, releaseYear, languageId, rentalDuration, rentalRate,
+	            length, replacementCost, rating, specialFeatures);
 
-		Film createdFilm = dao.createFilm(film);
+	    ModelAndView mv = new ModelAndView();
+	    mv.setViewName("WEB-INF/created-film.jsp");
+	    mv.addObject("film", createdFilm);
 
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("WEB-INF/created-film.jsp");
-		mv.addObject("film", createdFilm);
-
-		return mv;
+	    return mv;
 	}
+
 
 }

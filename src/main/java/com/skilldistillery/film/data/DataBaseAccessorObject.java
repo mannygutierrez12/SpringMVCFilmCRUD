@@ -203,10 +203,12 @@ public class DataBaseAccessorObject implements DatabaseAccessor {
 	}
 
 	@Override
-	public Film createFilm(Film film) {
+	public Film createFilm(String title, String description, int releaseYear, int languageId, int rentalDuration,
+	        double rentalRate, int length, double replacementCost, String rating, String specialFeatures) {
 	    Connection conn = null;
 	    PreparedStatement stmt = null;
 	    ResultSet keys = null;
+	    Film film = null;
 
 	    try {
 	        conn = DriverManager.getConnection(URL, USER, PWD);
@@ -216,16 +218,16 @@ public class DataBaseAccessorObject implements DatabaseAccessor {
 	                + "VALUES (?,?,?,?,?,?,?,?,?,?)";
 
 	        stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-	        stmt.setString(1, film.getTitle());
-	        stmt.setString(2, film.getDescription());
-	        stmt.setInt(3, film.getReleaseYear());
-	        stmt.setInt(4, film.getLanguageId());
-	        stmt.setInt(5, film.getRentalDuration());
-	        stmt.setDouble(6, film.getRentalRate());
-	        stmt.setInt(7, film.getLength());
-	        stmt.setDouble(8, film.getReplacementCost());
-	        stmt.setString(9, film.getRating());
-	        stmt.setString(10, film.getSpecialFeatures());
+	        stmt.setString(1, title);
+	        stmt.setString(2, description);
+	        stmt.setInt(3, releaseYear);
+	        stmt.setInt(4, languageId);
+	        stmt.setInt(5, rentalDuration);
+	        stmt.setDouble(6, rentalRate);
+	        stmt.setInt(7, length);
+	        stmt.setDouble(8, replacementCost);
+	        stmt.setString(9, rating);
+	        stmt.setString(10, specialFeatures);
 
 	        int updateCount = stmt.executeUpdate();
 
@@ -233,36 +235,24 @@ public class DataBaseAccessorObject implements DatabaseAccessor {
 	            keys = stmt.getGeneratedKeys();
 
 	            if (keys.next()) {
-	                int newFilmId = keys.getInt(1);
+	                int generatedId = keys.getInt(1);
 
-	                film.setId(newFilmId);
+	                film = new Film(generatedId, title, description, releaseYear, languageId, rentalDuration, rentalRate,
+	                        length, replacementCost, rating, specialFeatures);
 	            }
-	        } else {
-	            film = null;
 	        }
 
+	        
 	    } catch (SQLException e) {
-	        System.err.println("SQL error: " + e.getMessage());
+	        System.err.println("Sorry, but we found the following error: " + e.getMessage());
 	        film = null;
 
-	    } finally {
-	        try {
-	            if (keys != null) {
-	                keys.close();
-	            }
-	            if (stmt != null) {
-	                stmt.close();
-	            }
-	            if (conn != null) {
-	                conn.close();
-	            }
-	        } catch (SQLException e) {
-	            System.err.println("SQL error: " + e.getMessage());
-	        }
-	    }
+	    } 
 
 	    return film;
 	}
+
+
 
 
 	@Override
@@ -273,6 +263,12 @@ public class DataBaseAccessorObject implements DatabaseAccessor {
 
 	@Override
 	public Boolean deleteFilm(int filmId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Film createFilm(Film film) {
 		// TODO Auto-generated method stub
 		return null;
 	}
