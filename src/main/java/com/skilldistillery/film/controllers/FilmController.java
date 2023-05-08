@@ -41,8 +41,12 @@ public class FilmController {
 	public String createFilm(Model model) throws SQLException {
 		return "WEB-INF/createfilm.jsp";
 	}
-
-	// The Following are all the Request Mapping
+	
+	@GetMapping(path = { "/", "error.do" })
+	public String errorPage(Model model) throws SQLException {
+		return "WEB-INF/error.jsp";
+	}
+	
 
 	@RequestMapping(path = "findfilmbyid.do", params = "filmId")
 	public ModelAndView findFilmById(@RequestParam("filmId") int id) {
@@ -55,27 +59,16 @@ public class FilmController {
 		return mv;
 	}
 
-	@RequestMapping(path = "createfilm.do", params = {"title", "description", "releaseYear", 
-			"languageId", "rentalDuration", "rentalRate", "length", "replacementCost", "rating", "specialFeatures"})
-	public ModelAndView createFilm(@RequestParam("title") String title, 
-	                               @RequestParam("description") String description,
-	                               @RequestParam("releaseYear") int releaseYear, 
-	                               @RequestParam("languageId") int languageId,
-	                               @RequestParam("rentalDuration") int rentalDuration, 
-	                               @RequestParam("rentalRate") double rentalRate,
-	                               @RequestParam("length") int length, 
-	                               @RequestParam("replacementCost") double replacementCost,
-	                               @RequestParam("rating") String rating, 
-	                               @RequestParam("specialFeatures") String specialFeatures) 
-	{
-	    Film createdFilm = dao.createFilm(title, description, releaseYear, languageId, rentalDuration, rentalRate,
-	            length, replacementCost, rating, specialFeatures);
+	@RequestMapping(path = "createnewfilm.do", method = RequestMethod.POST)
+	public String createFilm(Model model, Film film) {
+		Film createdFilm = dao.createFilm(film);
+		if (createdFilm != null) {
+			model.addAttribute(createdFilm);
+			return "WEB-INF/created-film.jsp";
+		} else {
+			return "WEB-INF/error.jsp";
+		}
 
-	    ModelAndView mv = new ModelAndView();
-	    mv.setViewName("WEB-INF/created-film.jsp");
-	    mv.addObject("film", createdFilm);
-
-	    return mv;
 	}
 
 

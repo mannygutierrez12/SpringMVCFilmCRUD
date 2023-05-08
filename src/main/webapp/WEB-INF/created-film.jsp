@@ -1,82 +1,95 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+  pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Created Film</title>
+  <meta charset="UTF-8">
+  <title>Film ID</title>
+  <style>
+    body {
+      background-color: #8ac8db;
+    }
 
-<style>
-body {
-	background-color: #8ac8db;
-}
+    .mainDiv {
+      text-align: center;
+      background-color: lightgray;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      border-radious: 100%;
+    }
 
-.mainDiv {
-	text-align: center;
-	background-color: lightgray;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center;
-	margin: 5%;
-	padding: 5%;
-}
+    h3 {
+      text-align: center;
+      margin-top: 0;
+    }
+    
+    ul{
+    	list-style: none;
+    }
 
-h1, p {
-	text-align: center;
-}
+    .link-container {
+      display: inline-block;
+      width: 200px;
+      height: 100px;
+      margin: 10px;
+      text-align: center;
+      background-color: #f2f2f2;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
 
-ul {
-	list-style: none;
-}
+    .link-container a {
+      display: block;
+      height: 100%;
+      width: 100%;
+      padding-top: 40px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      font-size: 16px;
+    }
 
-form {
-	margin-top: 20px;
-}
-
-label {
-	display: inline-block;
-	width: 150px;
-	text-align: right;
-	margin-right: 10px;
-}
-
-input[type="text"] {
-	padding: 5px;
-	margin-bottom: 10px;
-	border-radius: 3px;
-	border: 1px solid #ccc;
-	box-shadow: inset 0 1px 3px #ddd;
-	font-size: 16px;
-	width: 250px;
-}
-</style>
+    .link-container:hover {
+      background-color: #eee;
+    }
+  </style>
 </head>
 <body>
-	<h1>Film Created Successfully</h1>
-	<p>The following film has been added to the database:</p>
-	<div class="mainDiv">
-		<ul>
-			<li><strong>Title:</strong> ${film.title}</li>
-			<li><strong>Description:</strong> ${film.description}</li>
-			<li><strong>Release Year:</strong> ${film.releaseYear}</li>
-			<li><strong>Language:</strong> ${film.language.name}</li>
-			<li><strong>Rental Duration:</strong> ${film.rentalDuration}</li>
-			<li><strong>Rental Rate:</strong> ${film.rentalRate}</li>
-			<li><strong>Length:</strong> ${film.length}</li>
-			<li><strong>Replacement Cost:</strong> ${film.replacementCost}</li>
-			<li><strong>Rating:</strong> ${film.rating}</li>
-			<li><strong>Special Features:</strong> ${film.specialFeatures}</li>
-		</ul>
-		</div>
-		<c:if test="${not empty film.id}">
-			<p>The film ID is ${film.id}.</p>
-		</c:if>
-		<c:if test="${empty film.id}">
-			<p>There was an error creating the film. Please try again later.</p>
-		</c:if>
-	
+  <div class="mainDiv">
+    
+    <c:choose>
+      <c:when test="${! empty film}">
+        <ul>
+        <li><h3>Film Succesfully Loaded into the Database</h3></li>
+          <li><strong>${film.title}</strong></li>
+          <li><strong>Description:</strong> ${film.description}</li>
+          <li><strong>Release Year:</strong> ${film.releaseYear}</li>
+          <li><strong>Language ID:</strong> ${film.languageId}</li>
+          <li><strong>Rental Duration:</strong> ${film.rentalDuration}</li>
+          <li><strong>Rental Rate:</strong> ${film.rentalRate}</li>
+          <li><strong>Length:</strong> ${film.length}</li>
+          <li><strong>Replacement Cost:</strong> ${film.replacementCost}</li>
+          <li><strong>Rating:</strong> ${film.rating}</li>
+          <li><strong>Special Features:</strong> ${film.specialFeatures}</li>
+        </ul>
+      </c:when>
+      <c:otherwise>
+        <p>No film found</p>
+      </c:otherwise>
+    </c:choose>
+  </div>
+   <footer style="text-align: center;">
+  <p>&copy; 2023 MVC Film</p>
+  <a href="home.do">Go back to the main Homepage</a>
+</footer>
 </body>
 </html>

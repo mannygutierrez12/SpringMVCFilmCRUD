@@ -203,53 +203,53 @@ public class DataBaseAccessorObject implements DatabaseAccessor {
 	}
 
 	@Override
-	public Film createFilm(String title, String description, int releaseYear, int languageId, int rentalDuration,
-	        double rentalRate, int length, double replacementCost, String rating, String specialFeatures) {
-	    Connection conn = null;
-	    PreparedStatement stmt = null;
-	    ResultSet keys = null;
-	    Film film = null;
+	public Film createFilm(Film film) {
+		Connection conn = null;
+		try {
 
-	    try {
-	        conn = DriverManager.getConnection(URL, USER, PWD);
+			conn = DriverManager.getConnection(URL, USER, PWD);
+			conn.setAutoCommit(false); // START TRANSACTION
+			String sql = "INSERT INTO film (title, description, release_year, language_id, rental_duration, "
+					+ "rental_rate, length, replacement_cost, rating, special_features)"
+					+ "VALUES (?,?,?, ?, ?, ?, ?, ?, ?,?)";
+			
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			
+			stmt.setString(1, film.getTitle());
+			stmt.setString(2, film.getDescription());
+			stmt.setInt(3, film.getReleaseYear());
+			stmt.setInt(4, film.getLanguageId());
+			stmt.setInt(5, film.getRentalDuration());
+			stmt.setDouble(6, film.getRentalRate());
+			stmt.setInt(7, film.getLength());
+			stmt.setDouble(8, film.getReplacementCost());
+			stmt.setString(9, film.getRating());
+			stmt.setString(10, film.getSpecialFeatures());
 
-	        String sql = "INSERT INTO film (title, description, release_year, language_id, "
-	                + "rental_duration, rental_rate, length, replacement_cost, rating, special_features) "
-	                + "VALUES (?,?,?,?,?,?,?,?,?,?)";
+			int updateCount = stmt.executeUpdate();
+			
+			conn.commit();
+			if (updateCount == 1) {
+				ResultSet keys = stmt.getGeneratedKeys();
+				if (keys.next()) {
+					int newFilmId = keys.getInt(1);
+					film.setId(newFilmId);
 
-	        stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-	        stmt.setString(1, title);
-	        stmt.setString(2, description);
-	        stmt.setInt(3, releaseYear);
-	        stmt.setInt(4, languageId);
-	        stmt.setInt(5, rentalDuration);
-	        stmt.setDouble(6, rentalRate);
-	        stmt.setInt(7, length);
-	        stmt.setDouble(8, replacementCost);
-	        stmt.setString(9, rating);
-	        stmt.setString(10, specialFeatures);
+				}
+			}
 
-	        int updateCount = stmt.executeUpdate();
+		} catch (Exception e) {
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException sqle2) {
+					System.err.println("ROLLBACK, ROLLBACK, ROLLBACK");
+				}
+			}
+			System.out.println(e);
+		}
+		return film;
 
-	        if (updateCount == 1) {
-	            keys = stmt.getGeneratedKeys();
-
-	            if (keys.next()) {
-	                int generatedId = keys.getInt(1);
-
-	                film = new Film(generatedId, title, description, releaseYear, languageId, rentalDuration, rentalRate,
-	                        length, replacementCost, rating, specialFeatures);
-	            }
-	        }
-
-	        
-	    } catch (SQLException e) {
-	        System.err.println("Sorry, but we found the following error: " + e.getMessage());
-	        film = null;
-
-	    } 
-
-	    return film;
 	}
 
 
@@ -267,11 +267,7 @@ public class DataBaseAccessorObject implements DatabaseAccessor {
 		return null;
 	}
 
-	@Override
-	public Film createFilm(Film film) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	
 

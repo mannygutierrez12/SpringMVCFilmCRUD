@@ -23,6 +23,4 @@ public interface DatabaseAccessor {
 	
 	Boolean deleteFilm(int filmId);
 
-	Film createFilm(String title, String description, int releaseYear, int languageId, int rentalDuration,
-			double rentalRate, int length, double replacementCost, String rating, String specialFeatures);
 }
