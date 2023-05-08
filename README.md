@@ -23,6 +23,7 @@ We used the following technologies for this project:
 - CSS
 - Gradle
 - Groovy
+- CodePen for CSS examples
 
 ## Challenges
 
