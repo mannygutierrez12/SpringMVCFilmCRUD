@@ -62,6 +62,10 @@ h1 {
 			<a href="createfilm.do">Create a new film</a>
 		</div>
 		
+		<div class="link-container">
+			<a href="searchbykeyword.do">Search a film by keyword</a>
+		</div>
+		
 		
 	</div>
 

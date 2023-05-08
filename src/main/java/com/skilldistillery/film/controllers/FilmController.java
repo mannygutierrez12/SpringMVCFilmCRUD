@@ -1,6 +1,7 @@
 package com.skilldistillery.film.controllers;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,12 +42,16 @@ public class FilmController {
 	public String createFilm(Model model) throws SQLException {
 		return "WEB-INF/createfilm.jsp";
 	}
-	
+
 	@GetMapping(path = { "/", "error.do" })
 	public String errorPage(Model model) throws SQLException {
 		return "WEB-INF/error.jsp";
 	}
-	
+
+	@GetMapping(path = { "/", "searchbykeyword.do" })
+	public String searchByKeyword(Model model) throws SQLException {
+		return "WEB-INF/searchbykeyword.jsp";
+	}
 
 	@RequestMapping(path = "findfilmbyid.do", params = "filmId")
 	public ModelAndView findFilmById(@RequestParam("filmId") int id) {
@@ -54,6 +59,23 @@ public class FilmController {
 		Film film = dao.findFilmById(id);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("WEB-INF/filmid-result.jsp");
+		mv.addObject("film", film);
+
+		return mv;
+	}
+	
+	@RequestMapping(path = "searchbykeyword.do", params = "keyword")
+	public ModelAndView searchBykeyword(@RequestParam("keyword") String keyword) {
+
+		List<Film> film = null;
+		try {
+			film = dao.findFilmsByKeyword(keyword);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("WEB-INF/keyword-result.jsp");
 		mv.addObject("film", film);
 
 		return mv;
@@ -70,6 +92,5 @@ public class FilmController {
 		}
 
 	}
-
 
 }
