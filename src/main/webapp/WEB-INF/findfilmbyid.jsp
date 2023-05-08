@@ -71,7 +71,7 @@ input[type="submit"] {
 	</div>
 	 <footer style="text-align: center;">
   <p>&copy; 2023 MVC Film</p>
-  <a href="home.do">Go back to the main Homepage</a>
+  <a href="home.do">Go back to the main Home page</a>
 </footer>
 </body>
 </html>

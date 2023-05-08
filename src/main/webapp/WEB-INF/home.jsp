@@ -66,6 +66,14 @@ h1 {
 			<a href="searchbykeyword.do">Search a film by keyword</a>
 		</div>
 		
+		<div class="link-container">
+			<a href="delete.do">Delete a film</a>
+		</div>
+		
+		<div class="link-container">
+			<a href="update.do">Update a film</a>
+		</div>
+		
 		
 	</div>
 

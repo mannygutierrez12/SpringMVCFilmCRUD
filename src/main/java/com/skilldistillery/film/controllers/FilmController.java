@@ -52,6 +52,16 @@ public class FilmController {
 	public String searchByKeyword(Model model) throws SQLException {
 		return "WEB-INF/searchbykeyword.jsp";
 	}
+	
+	@GetMapping(path = { "/", "delete.do" })
+	public String delete(Model model) throws SQLException {
+		return "WEB-INF/delete.jsp";
+	}
+	
+	@GetMapping(path = { "/", "update.do" })
+	public String update(Model model) throws SQLException {
+		return "WEB-INF/update.jsp";
+	}
 
 	@RequestMapping(path = "findfilmbyid.do", params = "filmId")
 	public ModelAndView findFilmById(@RequestParam("filmId") int id) {
@@ -65,15 +75,9 @@ public class FilmController {
 	}
 	
 	@RequestMapping(path = "searchbykeyword.do", params = "keyword")
-	public ModelAndView searchBykeyword(@RequestParam("keyword") String keyword) {
+	public ModelAndView searchBykeyword(@RequestParam("keyword") String keyword) throws SQLException {
 
-		List<Film> film = null;
-		try {
-			film = dao.findFilmsByKeyword(keyword);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		List<Film> film = dao.findFilmsByKeyword(keyword);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("WEB-INF/keyword-result.jsp");
 		mv.addObject("film", film);
